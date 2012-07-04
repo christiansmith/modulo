@@ -1,0 +1,20 @@
+{
+  "name": "modulo",
+  "description": "Modulo helps you compose large, maintainable Express applications from smaller, discreet, reusable apps.",
+  "version": "0.0.0",
+  "author": "Christian Smith",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Modulo",
+    "Express",
+    "Jade"
+  ],
+  "dependencies": {
+    "jade": "~0.26.3",
+    "express": "~3.0.0beta5"
+  }
+}
