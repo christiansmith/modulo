@@ -67,6 +67,12 @@ for (var key in express) {
 var views = exports.views = {};
 
 /**
+ * Make models accessible throughout the project.
+ */
+
+exports.models = {}
+
+/**
  * registerViews takes a directory and a namespace and recursively registers 
  * any templates in the views object. This can be called multiple times and 
  * each successive call can overwrite existing pairs.
@@ -161,7 +167,7 @@ exports.load = function (name, ns) {
   }
 };
 
-['views', 'registerViews', 'render', 'load'].forEach(function (key) {
+['views', 'registerViews', 'models', 'render', 'load'].forEach(function (key) {
   var desc = Object.getOwnPropertyDescriptor(exports, key);
   Object.defineProperty(app, key, desc);
 });
