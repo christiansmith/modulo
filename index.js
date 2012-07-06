@@ -121,7 +121,7 @@ exports.registerViews = function (dir, ns) {
 
 var _render = app.render
 exports.render = function (name, options, fn) {
-  _name = this.views[name];
+  var _name = this.views[name];
   _render.call(this, _name, options, fn);
 };
   
