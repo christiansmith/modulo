@@ -105,7 +105,7 @@ exports.registerViews = function (dir, ns) {
           , subns;
           
         if (ns) {
-          subns = ns + '/' + view;
+          subns = ns + '/' + listing;
         } else {
           subns = listing
         }
