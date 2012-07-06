@@ -149,6 +149,12 @@ exports.load = function (name, ns) {
       this.registerViews(path.join(cwd, 'views'));
       break;
 
+    case 'test':
+      var modulePath = cwd;
+      require(modulePath)(this);
+      this.registerViews(path.join(cwd, 'views'), ns);
+      break;
+
     default:
       try {
         modulePath = path.join(cwd, 'apps', name);
