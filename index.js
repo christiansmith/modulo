@@ -219,3 +219,27 @@ exports.parseExtends = function () {
 
 var desc = Object.getOwnPropertyDescriptor(exports, 'parseExtends');
 Object.defineProperty(jade.Parser.prototype, 'parseExtends', desc);
+
+
+
+/**
+ * Like `extends`, `include` also needs to lookup the path to the view.
+ */
+
+exports['include'] = function () {
+  var captures;
+  if (captures = /^include +([^\n]+)/.exec(this.input)) {
+    this.consume(captures[0].length);
+    var name = 'include'
+      , val = views[captures[1]];
+    return this.tok(name, val);
+  }
+};
+
+var desc = Object.getOwnPropertyDescriptor(exports, 'include');
+Object.defineProperty(jade.Lexer.prototype, 'include', desc);
+
+
+/**
+ * And the parseInclude function will need to be patched as well.
+ */
