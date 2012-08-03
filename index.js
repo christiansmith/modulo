@@ -164,7 +164,7 @@ exports.load = function (name, ns) {
 
     default:
       try {
-        modulePath = path.join(cwd, 'apps', name);
+        modulePath = path.join(cwd, context, 'apps', name);
         require(modulePath)(this);
       } catch (e) {
         modulePath = path.join(cwd, 'node_modules', 'modulo-' + name);
@@ -173,7 +173,7 @@ exports.load = function (name, ns) {
 
       viewsPath = path.join(modulePath, 'views');
       ns = ns || name;
-      if (fs.existsSync(viewsPath)) {
+      if (path.existsSync(viewsPath)) {
         this.registerViews(viewsPath, ns);
       }
 
