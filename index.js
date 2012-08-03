@@ -226,3 +226,74 @@ exports.parseExtends = function () {
 
 var desc = Object.getOwnPropertyDescriptor(exports, 'parseExtends');
 Object.defineProperty(jade.Parser.prototype, 'parseExtends', desc);
+
+
+
+/**
+ * Like `extends`, `include` also needs to lookup the path to the view.
+ */
+
+exports['include'] = function () {
+  var captures;
+  if (captures = /^include +([^\n]+)/.exec(this.input)) {
+    this.consume(captures[0].length);
+    var name = 'include'
+      , val = views[captures[1]];
+    return this.tok(name, val);
+  }
+};
+
+var desc = Object.getOwnPropertyDescriptor(exports, 'include');
+Object.defineProperty(jade.Lexer.prototype, 'include', desc);
+
+
+/**
+ * And the parseInclude function will need to be patched as well.
+ */
+
+
+exports.parseInclude = function(){
+  var path = require('path')
+    , fs = require('fs')
+    , dirname = path.dirname
+    , basename = path.basename
+    , join = path.join;
+
+  var path = this.expect('include').val.trim()
+    , dir = dirname(this.filename);
+
+  if (!this.filename)
+    throw new Error('the "filename" option is required to use includes');
+
+  // no extension
+  if (!~basename(path).indexOf('.')) {
+    path += '.jade';
+  }
+
+  // non-jade
+  if ('.jade' != path.substr(-5)) {
+    var path = path //join(dir, path)
+      , str = fs.readFileSync(path, 'utf8');
+    return new nodes.Literal(str);
+  }
+
+  var path = path //join(dir, path)
+    , str = fs.readFileSync(path, 'utf8')
+   , parser = new jade.Parser(str, path, this.options);
+  parser.blocks = this.blocks;
+  parser.mixins = this.mixins;
+
+  this.context(parser);
+  var ast = parser.parse();
+  this.context();
+  ast.filename = path;
+
+  if ('indent' == this.peek().type) {
+    ast.includeBlock().push(this.block());
+  }
+
+  return ast;
+};
+
+var desc = Object.getOwnPropertyDescriptor(exports, 'parseInclude');
+Object.defineProperty(jade.Parser.prototype, 'parseInclude', desc);
