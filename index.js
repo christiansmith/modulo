@@ -137,27 +137,34 @@ exports.render = function (name, options, fn) {
  */
 
 exports.load = function (name, ns) {
-  var cwd = process.cwd()
+  var env = process.env.NODE_ENV
+    , cwd = process.cwd()
+    , context = (env === 'test') ? 'test/project' : ''
     , modulePath
     , viewsPath;
 
   switch (name) {
     case 'config':
+      modulePath = path.join(cwd, context, name)
+      require(modulePath)(this);
+      break;
+
     case 'apps':
-      var modulePath = path.join(cwd, name);
+      modulePath = path.join(cwd, name);
       require(modulePath)(this);
       this.registerViews(path.join(cwd, 'views'));
       break;
 
-    case 'test':
-      var modulePath = cwd;
+    case 'self':
+      modulePath = cwd;
       require(modulePath)(this);
       this.registerViews(path.join(cwd, 'views'), ns);
+      this.registerViews(path.join(cwd, context, 'views'));
       break;
 
     default:
       try {
-        modulePath = path.join(cwd, 'apps', name);
+        modulePath = path.join(cwd, context, 'apps', name);
         require(modulePath)(this);
       } catch (e) {
         modulePath = path.join(cwd, 'node_modules', 'modulo-' + name);
@@ -166,7 +173,7 @@ exports.load = function (name, ns) {
 
       viewsPath = path.join(modulePath, 'views');
       ns = ns || name;
-      if (fs.existsSync(viewsPath)) {
+      if (path.existsSync(viewsPath)) {
         this.registerViews(viewsPath, ns);
       }
 
