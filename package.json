@@ -1,7 +1,7 @@
 {
   "name": "modulo",
   "description": "Modulo helps you compose large, maintainable Express applications from smaller, discreet, reusable apps.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Christian Smith",
   "license": "MIT",
   "main": "index.js",
