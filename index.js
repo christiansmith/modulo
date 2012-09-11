@@ -139,7 +139,7 @@ exports.render = function (name, options, fn) {
 exports.load = function (name, ns) {
   var env = process.env.NODE_ENV
     , cwd = process.cwd()
-    , context = (env === 'test') ? 'test/project' : ''
+    , context = (path.existsSync('./test/project')) ? 'test/project' : ''
     , modulePath
     , viewsPath;
 
