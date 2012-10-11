@@ -139,7 +139,7 @@ exports.render = function (name, options, fn) {
 exports.load = function (name, ns) {
   var env = process.env.NODE_ENV
     , cwd = process.cwd()
-    , context = (path.existsSync('./test/project')) ? 'test/project' : ''
+    , context = (fs.existsSync('./test/project')) ? 'test/project' : ''
     , modulePath
     , viewsPath;
 
@@ -173,7 +173,7 @@ exports.load = function (name, ns) {
 
       viewsPath = path.join(modulePath, 'views');
       ns = ns || name;
-      if (path.existsSync(viewsPath)) {
+      if (fs.existsSync(viewsPath)) {
         this.registerViews(viewsPath, ns);
       }
 
