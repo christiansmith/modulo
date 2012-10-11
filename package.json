@@ -1,7 +1,7 @@
 {
   "name": "modulo",
   "description": "Modulo helps you compose large, maintainable Express applications from smaller, discreet, reusable apps.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Christian Smith",
   "license": "MIT",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "Jade"
   ],
   "dependencies": {
-    "jade": "~0.26.3",
-    "express": "~3.0.0beta4"
+    "jade": "~0.27.6",
+    "express": "~3.0.0rc5"
   }
 }
