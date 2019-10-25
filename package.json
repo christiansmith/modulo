@@ -15,6 +15,6 @@
   ],
   "dependencies": {
     "jade": "~0.27.6",
-    "express": "~3.0.0rc5"
+    "express": "~4.17.1"
   }
 }
